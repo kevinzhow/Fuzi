@@ -135,6 +135,9 @@ open class XMLDocument {
   }
 
   fileprivate class func parse(buffer: UnsafeBufferPointer<Int8>, options: Int32) -> xmlDocPtr? {
+    guard let baseAddress = buffer.baseAddress, buffer.count > 0 else {
+      return nil
+    }
     return xmlReadMemory(buffer.baseAddress, Int32(buffer.count), "", nil, options)
   }
   
